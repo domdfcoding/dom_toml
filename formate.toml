@@ -36,6 +36,7 @@ known_third_party = [
     "coverage",
     "coverage_pyver_pragma",
     "domdf_python_tools",
+    "numpy",
     "pytest",
     "pytest_cov",
     "pytest_randomly",
