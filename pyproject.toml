@@ -9,9 +9,11 @@ description = "Dom's tools for Tom's Obvious, Minimal Language."
 readme = "README.rst"
 keywords = [ "toml", "serialize", "configuration",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
+
 [[project.authors]]
 email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+
 
 [project.license]
 file = "LICENSE"
