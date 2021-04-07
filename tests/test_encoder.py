@@ -98,4 +98,3 @@ def test_encoder_inline_table_nested(advanced_file_regression: AdvancedFileRegre
 			toml.dumps(toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
 			)
 	toml.loads(toml.dumps(toml.loads(source), encoder=TomlEncoder(preserve=True)))
-
