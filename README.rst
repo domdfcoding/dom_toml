@@ -26,7 +26,7 @@ dom_toml
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
-	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
+	  - |codefactor| |actions_flake8| |actions_mypy|
 	* - Other
 	  - |license| |language| |requires|
 
@@ -115,10 +115,6 @@ dom_toml
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/dom_toml
 	:target: https://pypi.org/project/dom_toml/
 	:alt: PyPI - Downloads
-
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/dom_toml/master.svg
-	:target: https://results.pre-commit.ci/latest/github/domdfcoding/dom_toml/master
-	:alt: pre-commit.ci status
 
 .. end shields
 
