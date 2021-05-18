@@ -165,6 +165,6 @@ Contents
 
 	View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/index.html>`__.
 
-	`Browse the GitHub Repository <https://github.com/domdfcoding/dom_toml>`__
+	:github:repo:`Browse the GitHub Repository <domdfcoding/dom_toml>`
 
 .. end links
