@@ -9,7 +9,7 @@ description = "Dom's tools for Tom's Obvious, Minimal Language."
 readme = "README.rst"
 keywords = [ "configuration", "serialize", "toml",]
 requires-python = ">=3.6.1"
-dependencies = [ "toml>=0.10.2", "domdf-python-tools>=2.8.0",]
+dependencies = [ "domdf-python-tools>=2.8.0", "toml>=0.10.2",]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -21,6 +21,7 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -135,7 +136,7 @@ base-classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
-python-versions = [ "3.6", "3.7", "3.8", "3.9",]
+python-versions = [ "3.6", "3.7", "3.8", "3.9", "3.10",]
 python-implementations = [ "CPython", "PyPy",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
