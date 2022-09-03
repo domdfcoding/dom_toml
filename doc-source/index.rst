@@ -60,8 +60,8 @@ dom_toml
 		:workflow: mypy
 		:alt: mypy status
 
-	.. |requires| image:: https://dependency-dash.herokuapp.com/github/domdfcoding/dom_toml/badge.svg
-		:target: https://dependency-dash.herokuapp.com/github/domdfcoding/dom_toml/
+	.. |requires| image:: https://dependency-dash.repo-helper.uk/github/domdfcoding/dom_toml/badge.svg
+		:target: https://dependency-dash.repo-helper.uk/github/domdfcoding/dom_toml/
 		:alt: Requirements Status
 
 	.. |coveralls| coveralls-shield::
