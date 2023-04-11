@@ -34,6 +34,7 @@ import copy
 import datetime
 import os
 import pathlib
+import sys
 from collections import OrderedDict
 from decimal import Decimal
 from typing import Any, Dict, MutableMapping
@@ -212,10 +213,12 @@ def test_decimal():
 	with pytest.raises(TypeError, match="expected str, bytes or os.PathLike object, not list"):
 		load([])  # type: ignore[call-overload]
 
-	with pytest.raises(
-			TypeError,
-			match="argument should be a str object or an os.PathLike object returning str, not <class 'bytes'>"
-			):
+	if sys.version_info < (3, 12):
+		error_msg = "argument should be a str object or an os.PathLike object returning str, not <class 'bytes'>"
+	else:
+		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'bytes"
+
+	with pytest.raises(TypeError, match=error_msg):
 		load(b"test.toml")  # type: ignore[call-overload]
 
 
