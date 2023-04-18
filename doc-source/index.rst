@@ -33,7 +33,7 @@ dom_toml
 		  - |license| |language| |requires|
 
 	.. |docs| rtfd-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:alt: Documentation Build Status
 
 	.. |docs_check| actions-shield::
@@ -153,6 +153,7 @@ Contents
 
 	api/dom_toml
 	api/*
+	changes
 	contributing
 	Source
 	license
