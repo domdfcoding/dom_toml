@@ -87,23 +87,6 @@ def test_circular_ref():
 		dumps(b)
 
 
-def test__dict():
-
-	class TestDict(dict):
-		pass
-
-	assert isinstance(loads(TEST_STR, dict_=TestDict), TestDict)
-
-
-def test_dict_decoder():
-
-	class TestDict(dict):
-		pass
-
-	test_dict_decoder = TomlDecoder(TestDict)
-	assert isinstance(loads(TEST_STR, decoder=test_dict_decoder), TestDict)
-
-
 @pytest.mark.parametrize(
 		"encoder_cls",
 		[
@@ -178,16 +161,9 @@ def test_numpy_ints():
 				pytest.param(toml_ordered.TomlOrderedEncoder(), id="instance"),
 				]
 		)
-@pytest.mark.parametrize(
-		"decoder_cls",
-		[
-				pytest.param(toml_ordered.TomlOrderedDecoder, id="type"),
-				pytest.param(toml_ordered.TomlOrderedDecoder(), id="instance"),
-				]
-		)
-def test_ordered(encoder_cls, decoder_cls):
-	o: Dict[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
-	assert o == loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
+def test_ordered(encoder_cls):
+	o: Dict[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls))
+	assert o == loads(dumps(TEST_DICT, encoder=encoder_cls))
 
 
 def test_tuple():
@@ -236,8 +212,8 @@ class FakeFile:
 
 def test_dump(tmp_pathplus):
 	dump(TEST_DICT, tmp_pathplus / "file.toml")
-	dump(load(tmp_pathplus / "file.toml", dict_=OrderedDict), tmp_pathplus / "file2.toml")
-	dump(load(tmp_pathplus / "file2.toml", dict_=OrderedDict), tmp_pathplus / "file3.toml")
+	dump(load(tmp_pathplus / "file.toml"), tmp_pathplus / "file2.toml")
+	dump(load(tmp_pathplus / "file2.toml"), tmp_pathplus / "file3.toml")
 
 	assert (tmp_pathplus / "file2.toml").read_text() == (tmp_pathplus / "file3.toml").read_text()
 

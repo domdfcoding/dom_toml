@@ -9,7 +9,6 @@ from domdf_python_tools.paths import PathPlus
 # this package
 import dom_toml
 from dom_toml import load
-from dom_toml.decoder import TomlPureDecoder
 from dom_toml.parser import TOML_TYPES, AbstractConfigParser, BadConfigError, construct_path
 
 
@@ -273,7 +272,7 @@ def test_parse_valid_config(
 		advanced_data_regression: AdvancedDataRegressionFixture,
 		):
 	(tmp_pathplus / "pyproject.toml").write_clean(toml_config)
-	config = PEP621Parser().parse(dom_toml.loads(toml_config, decoder=TomlPureDecoder)["project"])
+	config = PEP621Parser().parse(dom_toml.loads(toml_config)["project"])
 	advanced_data_regression.check(config)
 
 

@@ -8,7 +8,6 @@ from domdf_python_tools.paths import PathPlus
 
 # this package
 import dom_toml
-from dom_toml.decoder import TomlPureDecoder
 from dom_toml.parser import TOML_TYPES, AbstractConfigParser
 
 
@@ -286,7 +285,7 @@ def test_parse_valid_config(
 		):
 	(tmp_pathplus / "pyproject.toml").write_clean(toml_config)
 	config = PEP621Parser().parse(
-			dom_toml.loads(toml_config, decoder=TomlPureDecoder)["project"],
+			dom_toml.loads(toml_config)["project"],
 			set_defaults=True,
 			)
 

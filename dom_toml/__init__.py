@@ -37,8 +37,9 @@ Dom's tools for Tom's Obvious, Minimal Language.
 #
 
 # stdlib
+import sys
 import warnings
-from typing import Any, Dict, Mapping, MutableMapping, Type, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Mapping, MutableMapping, Type, TypeVar, Union
 
 # 3rd party
 import toml
@@ -57,6 +58,11 @@ __email__: str = "dominic@davis-foster.co.uk"
 __all__ = ["TomlEncoder", "dumps", "loads", "dump", "load", "_M"]
 
 _M = TypeVar("_M", bound=MutableMapping[str, Any])
+
+if sys.version_info < (3, 11):
+	import tomli as tomllib
+else:
+	import tomllib
 
 
 def dumps(
@@ -116,106 +122,20 @@ def dump(
 	filename.write_clean(as_toml)
 	return as_toml
 
-
-@overload
-def loads(
-		s: str,
-		dict_: Type[Dict[str, Any]] = ...,
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> Dict[str, Any]: ...
-
-
-@overload
-def loads(
-		s: str,
-		dict_: Type[_M],
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> _M: ...
-
-
-def loads(
-		s: str,
-		dict_: Type[_M] = dict,  # type: ignore[assignment]
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> _M:
-	r"""
-	Parse the given string as TOML.
-
-	:param s:
-	:param dict\_: The class of the returned data.
-	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
-
-	:returns: A mapping containing the ``TOML`` data.
-
-	.. versionchanged:: 0.5.0
-
-		* The default value for ``decoder`` changed from :py:obj:`None` to :class:`toml.TomlDecoder`
-		  Explicitly passing ``decoder=``\ :py:obj:`None` is deprecated and support will be removed in 1.0.0
-		* Instead, pass a decoder class or, if you use the ``dict_`` option,
-		  an instance of the decoder class for ``dict_``.
-	"""
-
-	if decoder is None:
-		warnings.warn(
-				"Passing decoder=None to 'dom_toml.loads' is deprecated since 0.5.0 and support will be removed in 1.0.0",
-				DeprecationWarning,
-				)
-		decoder = toml.TomlDecoder(dict_)
-	elif isinstance(decoder, type):
-		if dict_ is dict:
-			decoder = decoder()
-		else:
-			# TODO: deprecate this behaviour and the dict_ option in favour of passing an instance of the encoder.
-			decoder = decoder(dict_)
-
-	return toml.loads(  # type: ignore[return-value]
-			s,
-			decoder=decoder,
-			)
-
-
-@overload
 def load(
 		filename: PathLike,
-		dict_: Type[Dict[str, Any]] = ...,
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> Dict[str, Any]: ...
-
-
-@overload
-def load(
-		filename: PathLike,
-		dict_: Type[_M],
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> _M: ...
-
-
-def load(
-		filename: PathLike,
-		dict_: Type[_M] = dict,  # type: ignore[assignment]
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> _M:
+		*, 
+		parse_float: Callable[[str], Any] =float,
+		) -> Dict[str, Any]:
 	r"""
 	Parse TOML from the given file.
 
 	:param filename: The filename to read from to.
-	:param dict\_: The class of the returned data.
-	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
+	:param parse_float: Optional function to use to parse floats (e.g. :class:`decimal.Decimal`.
 
 	:returns: A mapping containing the ``TOML`` data.
-
-	.. versionchanged:: 0.5.0
-
-		* The default value for ``decoder`` changed from :py:obj:`None` to :class:`toml.TomlDecoder`
-		  Explicitly passing ``decoder=``\ :py:obj:`None` is deprecated and support will be removed in 1.0.0
-		* Instead, pass a decoder class or, if you use the ``dict_`` option,
-		  an instance of the decoder class for ``dict_``.
-
-	.. latex:clearpage::
 	"""
 
-	return loads(
-			PathPlus(filename).read_text(),
-			dict_=dict_,
-			decoder=decoder,
-			)
+	return tomllib.loads(PathPlus(filename).read_text(), parse_float=parse_float)
+
+loads = tomllib.loads
