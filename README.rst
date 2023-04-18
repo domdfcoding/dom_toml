@@ -30,8 +30,8 @@ dom_toml
 	* - Other
 	  - |license| |language| |requires|
 
-.. |docs| image:: https://img.shields.io/readthedocs/dom_toml/latest?logo=read-the-docs
-	:target: https://dom_toml.readthedocs.io/en/latest
+.. |docs| image:: https://img.shields.io/readthedocs/dom-toml/latest?logo=read-the-docs
+	:target: https://dom-toml.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/dom_toml/workflows/Docs%20Check/badge.svg
@@ -117,6 +117,10 @@ dom_toml
 	:alt: PyPI - Downloads
 
 .. end shields
+
+.. attention:: In ``dom_toml`` 2.x the API has changed considerably. Please consult the `documentation`_ for details.
+
+.. _documentation: foo
 
 Installation
 --------------
