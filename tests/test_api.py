@@ -207,10 +207,20 @@ def test_decimal():
 	with pytest.raises(TypeError):
 		loads(2)  # type: ignore[call-overload]
 
-	with pytest.raises(TypeError, match="expected str, bytes or os.PathLike object, not int"):
+	if sys.version_info < (3, 12):
+		error_msg = "expected str, bytes or os.PathLike object, not int"
+	else:
+		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'int'"
+
+	with pytest.raises(TypeError, match=error_msg):
 		load(2)  # type: ignore[call-overload]
 
-	with pytest.raises(TypeError, match="expected str, bytes or os.PathLike object, not list"):
+	if sys.version_info < (3, 12):
+		error_msg = "expected str, bytes or os.PathLike object, not list"
+	else:
+		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'list'"
+
+	with pytest.raises(TypeError, match=error_msg):
 		load([])  # type: ignore[call-overload]
 
 	if sys.version_info < (3, 12):
