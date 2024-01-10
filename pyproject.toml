@@ -1,6 +1,6 @@
 [build-system]
-requires = [ "flit-core<4,>=3.2",]
-build-backend = "flit_core.buildapi"
+requires = [ "hatch-requirements-txt",]
+build-backend = "hatchling.build"
 
 [project]
 name = "dom_toml"
@@ -164,6 +164,16 @@ include = false
 order = 30
 include = false
 
+[tool.hatch.build]
+exclude = [
+    "/*",
+    "!/dom_toml",
+    "!/dom_toml/**/requirements.txt",
+    "!/requirements.txt",
+    "tests",
+    "doc-source",
+]
+
 [tool.snippet-fmt.languages.python]
 reformat = true
 
@@ -173,3 +183,12 @@ reformat = true
 [tool.snippet-fmt.languages.ini]
 
 [tool.snippet-fmt.languages.json]
+
+[tool.hatch.build.sdist]
+include = [ "dom_toml", "requirements.txt",]
+
+[tool.hatch.build.wheel]
+include = [ "dom_toml",]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = [ "requirements.txt",]
