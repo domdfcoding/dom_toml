@@ -12,7 +12,6 @@ short_desc: "Dom's tools for Tom's Obvious, Minimal Language."
 min_coverage: 98.5
 sphinx_html_theme: furo
 standalone_contrib_guide: true
-preserve_custom_theme: true
 use_flit: true
 docs_fail_on_warning: true
 
