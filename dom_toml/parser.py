@@ -32,8 +32,8 @@ Abstract base class for TOML configuration parsers.
 from abc import ABC, abstractmethod
 from typing import Any, Callable, ClassVar, Dict, Iterable, List, Optional, Tuple, Type, TypeVar, Union
 
-# 3rd party
-import toml
+# this package
+import dom_toml
 
 __all__ = ["AbstractConfigParser", "BadConfigError", "construct_path", "TOML_TYPES"]
 
@@ -66,7 +66,7 @@ def construct_path(path: Iterable[str]) -> str:
 	:param path: The path elements.
 	"""
 
-	return '.'.join([toml.dumps({elem: 0})[:-5] for elem in path])
+	return '.'.join([dom_toml.dumps({elem: 0})[:-5] for elem in path])
 
 
 _C = TypeVar("_C", bound=Callable)

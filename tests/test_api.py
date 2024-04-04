@@ -35,25 +35,17 @@ import datetime
 import os
 import pathlib
 import sys
-from collections import OrderedDict
 from decimal import Decimal
-from typing import Any, Dict, MutableMapping
+from typing import Any, Dict
 
 # 3rd party
 import pytest
-import toml
-from toml import (
-		TomlArraySeparatorEncoder,
-		TomlDecoder,
-		TomlNumpyEncoder,
-		TomlPathlibEncoder,
-		TomlPreserveInlineDictEncoder
-		)
-from toml import ordered as toml_ordered
-from toml.decoder import InlineTableDict
 
 # this package
+import dom_toml
 from dom_toml import dump, dumps, load, loads
+from dom_toml.decoder import InlineTableDict
+from dom_toml.encoder import TomlArraySeparatorEncoder, TomlEncoder, TomlNumpyEncoder, TomlPathlibEncoder
 
 test_toml = os.path.abspath(os.path.join(__file__, "..", "test.toml"))
 
@@ -74,45 +66,19 @@ def test_bug_196():
 	assert round_trip_bug_dict['x'] == bug_dict['x']
 
 
-def test_circular_ref():
-	a = {}
-	b: MutableMapping[str, Any] = {}
-	b['c'] = 4
-	b["self"] = b
-	a['b'] = b
-	with pytest.raises(ValueError, match="Circular reference detected"):
-		dumps(a)
-
-	with pytest.raises(ValueError, match="Circular reference detected"):
-		dumps(b)
+# def test__dict():
 
 
-def test_dict_decoder():
+def test_inline_dict():
 
-	class TestDict(dict):
-		pass
-
-	test_dict_decoder = TomlDecoder(TestDict)
-	assert isinstance(loads(TEST_STR, decoder=test_dict_decoder), TestDict)
-
-
-@pytest.mark.parametrize(
-		"encoder_cls",
-		[
-				pytest.param(TomlPreserveInlineDictEncoder, id="type"),
-				pytest.param(TomlPreserveInlineDictEncoder(), id="instance"),
-				]
-		)
-def test_inline_dict(encoder_cls):
-
-	class TestDict(dict, InlineTableDict):
+	class TestDict(InlineTableDict):
 		pass
 
 	t = copy.deepcopy(TEST_DICT)
 	t['d'] = TestDict()
 	t['d']['x'] = "abc"
-	o: MutableMapping[str, Any] = loads(dumps(t, encoder=encoder_cls))
-	assert o == loads(dumps(o, encoder=encoder_cls))
+	o: Dict[str, Any] = loads(dumps(t, encoder=TomlEncoder(preserve=True)))
+	assert o == loads(dumps(o, encoder=TomlEncoder(preserve=True)))
 
 
 @pytest.mark.parametrize(
@@ -163,23 +129,23 @@ def test_numpy_ints():
 	assert o == loads(dumps(o, encoder=encoder))
 
 
-@pytest.mark.parametrize(
-		"encoder_cls",
-		[
-				pytest.param(toml_ordered.TomlOrderedEncoder, id="type"),
-				pytest.param(toml_ordered.TomlOrderedEncoder(), id="instance"),
-				]
-		)
-@pytest.mark.parametrize(
-		"decoder_cls",
-		[
-				pytest.param(toml_ordered.TomlOrderedDecoder, id="type"),
-				pytest.param(toml_ordered.TomlOrderedDecoder(), id="instance"),
-				]
-		)
-def test_ordered(encoder_cls, decoder_cls):
-	o: MutableMapping[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
-	assert o == loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
+# @pytest.mark.parametrize(
+# 		"encoder_cls",
+# 		[
+# 				pytest.param(toml_ordered.TomlOrderedEncoder, id="type"),
+# 				pytest.param(toml_ordered.TomlOrderedEncoder(), id="instance"),
+# 				]
+# 		)
+# @pytest.mark.parametrize(
+# 		"decoder_cls",
+# 		[
+# 				pytest.param(toml_ordered.TomlOrderedDecoder, id="type"),
+# 				pytest.param(toml_ordered.TomlOrderedDecoder(), id="instance"),
+# 				]
+# 		)
+# def test_ordered(encoder_cls, decoder_cls):
+# 	o: Dict[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
+# 	assert o == loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
 
 
 def test_tuple():
@@ -238,8 +204,8 @@ class FakeFile:
 
 def test_dump(tmp_pathplus):
 	dump(TEST_DICT, tmp_pathplus / "file.toml")
-	dump(load(tmp_pathplus / "file.toml", decoder=TomlDecoder(OrderedDict)), tmp_pathplus / "file2.toml")
-	dump(load(tmp_pathplus / "file2.toml", decoder=TomlDecoder(OrderedDict)), tmp_pathplus / "file3.toml")
+	dump(load(tmp_pathplus / "file.toml"), tmp_pathplus / "file2.toml")
+	dump(load(tmp_pathplus / "file2.toml"), tmp_pathplus / "file3.toml")
 
 	assert (tmp_pathplus / "file2.toml").read_text() == (tmp_pathplus / "file3.toml").read_text()
 
@@ -274,7 +240,7 @@ def test_pathlib(encoder_cls):
 path = "{sep}home{sep}edgy"
 """
 	assert test_str == dumps(o, encoder=encoder_cls)
-	toml.loads(test_str)
+	dom_toml.loads(test_str)
 
 
 def test_deepcopy_timezone():

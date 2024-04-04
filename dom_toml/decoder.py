@@ -39,18 +39,65 @@ TOML decoders.
 #
 
 # stdlib
-from typing import Dict
+from typing import Any, Callable, Dict, Tuple
 
 # 3rd party
-import toml
+import tomli
 
-__all__ = ["TomlPureDecoder"]
+__all__ = ["InlineTableDict", "TomlDecoder", "TomlPureDecoder"]
 
 
-class TomlPureDecoder(toml.decoder.TomlDecoder):
+class InlineTableDict(dict):
+	"""
+	Subclass of dict for inline tables.
+
+	.. versionadded:: 2.0.0
+	"""
+
+
+class TomlDecoder:
+	"""
+	TOML decoder which uses a dict-subclass for inline tables.
+
+	.. versionadded:: 2.0.0
+	"""
+
+	def loads(self, s: str) -> Dict[str, Any]:
+		"""
+		Parse the given string as TOML.
+
+		:param s:
+
+		:returns: A mapping containing the ``TOML`` data.
+		"""
+
+		try:
+			pit = tomli._parser.parse_inline_table
+
+			def _parse_inline_table(src: str, pos: int, parse_float: Callable[[str], Any]) -> Tuple[int, Dict]:
+				pos, table = pit(src, pos, parse_float)
+				return pos, InlineTableDict(table)
+
+			tomli._parser.parse_inline_table = _parse_inline_table
+			return tomli.loads(s)
+		finally:
+			tomli._parser.parse_inline_table = pit
+
+
+class TomlPureDecoder(TomlDecoder):
 	"""
 	TOML decoder which uses pure-Python dictionaries for inline tables.
 	"""
 
-	def get_empty_inline_table(self) -> Dict:  # noqa: D102
-		return {}
+	def loads(self, s: str) -> Dict[str, Any]:
+		"""
+		Parse the given string as TOML.
+
+		:param s:
+
+		:returns: A mapping containing the ``TOML`` data.
+
+		.. versionadded:: 2.0.0
+		"""
+
+		return tomli.loads(s)

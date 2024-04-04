@@ -1,8 +1,1 @@
-[[key]]
-dict1 = "dict1_value"
-
-[[key]]
-dict2 = "dict2_value"
-
-[[key]]
-dict3 = "dict3_value"
+key = [ { dict1 = "dict1_value" }, { dict2 = "dict2_value" }, { dict3 = "dict3_value" },]

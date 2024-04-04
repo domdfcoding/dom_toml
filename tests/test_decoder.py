@@ -1,12 +1,9 @@
 # stdlib
 from textwrap import dedent
 
-# 3rd party
-from toml.decoder import InlineTableDict
-
 # this package
 from dom_toml import loads
-from dom_toml.decoder import TomlPureDecoder
+from dom_toml.decoder import InlineTableDict, TomlPureDecoder
 
 
 def test_decoder():
@@ -25,3 +22,4 @@ def test_decoder():
 	assert isinstance(data, dict)
 	assert isinstance(data["license"], dict)
 	assert not isinstance(data["license"], InlineTableDict)
+	assert type(data["license"]) is dict

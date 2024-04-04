@@ -1,1 +1,1 @@
-key = [ "list", 'double ""', "single ''",]
+key = [ "list", "double \"\"", "single ''",]

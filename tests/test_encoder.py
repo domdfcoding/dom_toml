@@ -1,9 +1,12 @@
+# stdlib
+from typing import Any, Dict
+
 # 3rd party
 import pytest
-import toml
 from coincidence import AdvancedFileRegressionFixture
 
 # this package
+import dom_toml
 from dom_toml import TomlEncoder, dumps
 
 PEP621 = {
@@ -67,10 +70,10 @@ array_of_tables = {"key": [
 				pytest.param({"project": PEP621}, id="pep621"),
 				]
 		)
-def test_encoder(data, advanced_file_regression: AdvancedFileRegressionFixture):
-	as_toml = dumps(data, encoder=TomlEncoder(dict))
+def test_encoder(data: Dict[str, Any], advanced_file_regression: AdvancedFileRegressionFixture):
+	as_toml = dumps(data, encoder=TomlEncoder())
 	advanced_file_regression.check(as_toml, extension=".toml")
-	assert toml.loads(as_toml) == data
+	assert dom_toml.loads(as_toml) == data
 
 
 @pytest.mark.parametrize(
@@ -80,21 +83,21 @@ def test_encoder(data, advanced_file_regression: AdvancedFileRegressionFixture):
 				pytest.param({"section": {"key": ("list", )}}, id="section_tuple_value"),
 				]
 		)
-def test_encoder_tuples(data, advanced_file_regression: AdvancedFileRegressionFixture):
-	as_toml = dumps(data, encoder=TomlEncoder(dict))
+def test_encoder_tuples(data: Dict[str, Any], advanced_file_regression: AdvancedFileRegressionFixture):
+	as_toml = dumps(data, encoder=TomlEncoder())
 	advanced_file_regression.check(as_toml, extension=".toml")
 
 
 def test_encoder_inline_table(advanced_file_regression: AdvancedFileRegressionFixture):
 	source = "[project]\nreadme = {file = 'README.rst', content-type = 'text/x-rst'}\n"
 	advanced_file_regression.check(
-			toml.dumps(toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
+			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
 			)
 
 
 def test_encoder_inline_table_nested(advanced_file_regression: AdvancedFileRegressionFixture):
 	source = "[project]\nreadme = {file = 'README.rst', nested = {content-type = 'text/x-rst'}}\n"
 	advanced_file_regression.check(
-			toml.dumps(toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
+			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
 			)
-	toml.loads(toml.dumps(toml.loads(source), encoder=TomlEncoder(preserve=True)))
+	dom_toml.loads(dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)))

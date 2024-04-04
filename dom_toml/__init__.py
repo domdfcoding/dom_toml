@@ -37,14 +37,14 @@ Dom's tools for Tom's Obvious, Minimal Language.
 #
 
 # stdlib
-from typing import Any, Mapping, MutableMapping, Type, Union
+from typing import Any, Dict, Mapping, Type, Union
 
 # 3rd party
-import toml
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 
 # this package
+from dom_toml.decoder import TomlDecoder
 from dom_toml.encoder import TomlEncoder
 
 __author__: str = "Dominic Davis-Foster"
@@ -53,46 +53,46 @@ __license__: str = "MIT License"
 __version__: str = "1.0.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
-__all__ = ["TomlEncoder", "dumps", "loads", "dump", "load"]
+__all__ = ["dumps", "loads", "dump", "load"]
 
 
 def dumps(
 		data: Mapping[str, Any],
-		encoder: Union[Type[toml.TomlEncoder], toml.TomlEncoder] = toml.TomlEncoder,
+		encoder: Union[Type[TomlEncoder], TomlEncoder] = TomlEncoder,
 		) -> str:
 	r"""
 	Convert ``data`` to a TOML string.
 
 	:param data:
-	:param encoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
+	:param encoder: The :class:`~.TomlEncoder` to use for constructing the output string.
 
 	:returns: A string containing the ``TOML`` corresponding to ``data``.
 
-	.. versionchanged:: 1.0.0  ``encoder`` must now be a :class:`toml.TomlEncoder` type or instance.
+	.. versionchanged:: 2.0.0  ``encoder`` must now be a :class:`~.TomlEncoder` type or instance.
 	.. latex:clearpage::
 	"""
 
 	if isinstance(encoder, type):
 		encoder = encoder()
 
-	return toml.dumps(data, encoder=encoder)
+	return ''.join(encoder.dumps(data, name=''))
 
 
 def dump(
 		data: Mapping[str, Any],
 		filename: PathLike,
-		encoder: Union[Type[toml.TomlEncoder], toml.TomlEncoder] = toml.TomlEncoder,
+		encoder: Union[Type[TomlEncoder], TomlEncoder] = TomlEncoder,
 		) -> str:
 	r"""
 	Writes out ``data`` as TOML to the given file.
 
 	:param data:
 	:param filename: The filename to write to.
-	:param encoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
+	:param encoder: The :class:`~.TomlEncoder` to use for constructing the output string.
 
 	:returns: A string containing the ``TOML`` corresponding to ``data``.
 
-	.. versionchanged:: 1.0.0  ``encoder`` must now be a :class:`toml.TomlEncoder` type or instance.
+	.. versionchanged:: 2.0.0  ``encoder`` must now be a :class:`~.TomlEncoder` type or instance.
 	"""
 
 	filename = PathPlus(filename)
@@ -103,40 +103,41 @@ def dump(
 
 def loads(
 		s: str,
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> MutableMapping[str, Any]:
+		decoder: Union[Type[TomlDecoder], TomlDecoder] = TomlDecoder,
+		) -> Dict[str, Any]:
 	r"""
 	Parse the given string as TOML.
 
 	:param s:
-	:param dict\_: The class of the returned data.
 	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
 
 	:returns: A mapping containing the ``TOML`` data.
 
-	.. versionchanged:: 1.0.0  ``decoder`` must now be a :class:`toml.TomlDecoder` type or instance.
+	.. versionchanged:: 2.0.0  ``decoder`` must now be a :class:`~.TomlDecoder` type or instance.
 	"""
+
+	if not isinstance(s, str):
+		raise TypeError("Expecting something like a string")
 
 	if isinstance(decoder, type):
 		decoder = decoder()
 
-	return toml.loads(s, decoder=decoder)
+	return decoder.loads(s)
 
 
 def load(
 		filename: PathLike,
-		decoder: Union[Type[toml.TomlDecoder], toml.TomlDecoder] = toml.TomlDecoder,
-		) -> MutableMapping[str, Any]:
+		decoder: Union[Type[TomlDecoder], TomlDecoder] = TomlDecoder,
+		) -> Dict[str, Any]:
 	r"""
 	Parse TOML from the given file.
 
 	:param filename: The filename to read from to.
-	:param dict\_: The class of the returned data.
 	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
 
 	:returns: A mapping containing the ``TOML`` data.
 
-	.. versionchanged:: 1.0.0  ``decoder`` must now be a :class:`toml.TomlDecoder` type or instance.
+	.. versionchanged:: 2.0.0  ``decoder`` must now be a :class:`~.TomlDecoder` type or instance.
 	"""
 
 	return loads(

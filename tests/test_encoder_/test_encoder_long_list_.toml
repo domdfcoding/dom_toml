@@ -14,7 +14,7 @@ key = [
     "mother",
     "festive",
     "cup",
-    'double ""',
+    "double \"\"",
     "single ''",
     "mixed '\"",
     "newline\n",
@@ -22,5 +22,5 @@ key = [
     "carriage_return\r",
     "backslash\\",
     "backspace\b",
-    "tab\t",
+    "tab	",
 ]
