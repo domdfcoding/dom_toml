@@ -113,15 +113,17 @@ class TomlEncoder:
 		literals = []
 		tables: List[Tuple[str, Any, bool]] = []  # => [(key, value, inside_aot)]
 		for k, v in table.items():
-			if self.preserve and isinstance(v, InlineTableDict):
+			if v is None:
+				continue
+			elif self.preserve and isinstance(v, InlineTableDict):
 				literals.append((k, v))
-
 			elif isinstance(v, dict):
 				tables.append((k, v, False))
 			elif self.is_aot(v) and not all(self.is_suitable_inline_table(t) for t in v):
 				tables.extend((k, t, True) for t in v)
 			else:
 				literals.append((k, v))
+
 		if inside_aot or name and (literals or not tables):
 			yielded = True
 			yield f"[[{name}]]\n" if inside_aot else f"[{name}]\n"
