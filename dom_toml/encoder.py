@@ -104,6 +104,8 @@ class TomlEncoder:
 		:param name: The table name.
 		:param inside_aot:
 
+		:rtype:
+
 		.. versionadded:: 2.0.0
 		"""
 
@@ -145,6 +147,10 @@ class TomlEncoder:
 
 		:param obj:
 		:param nest_level:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		if isinstance(obj, bool):
@@ -170,6 +176,10 @@ class TomlEncoder:
 		Format a decimal value.
 
 		:param obj:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		if obj.is_nan():
@@ -185,6 +195,10 @@ class TomlEncoder:
 		Format an inline table.
 
 		:param obj:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		# check cache first
@@ -209,6 +223,10 @@ class TomlEncoder:
 
 		:param obj:
 		:param nest_level:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		if not len(obj):
@@ -231,6 +249,10 @@ class TomlEncoder:
 		Format part of a key.
 
 		:param part:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		if part and BARE_KEY_CHARS.issuperset(part):
@@ -243,6 +265,10 @@ class TomlEncoder:
 
 		:param s:
 		:param allow_multiline:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		do_multiline = allow_multiline and '\n' in s
@@ -278,6 +304,10 @@ class TomlEncoder:
 		Decides if an object behaves as an array of tables (i.e. a nonempty list of dicts).
 
 		:param obj:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		return bool(isinstance(obj, ARRAY_TYPES) and obj and all(isinstance(v, dict) for v in obj))
@@ -287,6 +317,10 @@ class TomlEncoder:
 		Use heuristics to decide if the inline-style representation is a good choice for a given table.
 
 		:param obj:
+
+		:rtype:
+
+		.. versionadded:: 2.0.0
 		"""
 
 		# if self.preserve and isinstance(dict, InlineTableDict):

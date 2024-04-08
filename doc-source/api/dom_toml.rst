@@ -3,4 +3,3 @@
 ==================
 
 .. automodule:: dom_toml
-	:exclude-members: TomlEncoder
