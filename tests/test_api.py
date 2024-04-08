@@ -69,7 +69,7 @@ TEST_DICT: Dict[str, Any] = {'a': {'b': 1, 'c': 2}}
 def test_bug_196():
 	d = datetime.datetime.now()
 	bug_dict = {'x': d}
-	round_trip_bug_dict: Dict[str, Any] = loads(dumps(bug_dict))
+	round_trip_bug_dict: MutableMapping[str, Any] = loads(dumps(bug_dict))
 	assert round_trip_bug_dict == bug_dict
 	assert round_trip_bug_dict['x'] == bug_dict['x']
 
@@ -85,14 +85,6 @@ def test_circular_ref():
 
 	with pytest.raises(ValueError, match="Circular reference detected"):
 		dumps(b)
-
-
-def test__dict():
-
-	class TestDict(dict):
-		pass
-
-	assert isinstance(loads(TEST_STR, dict_=TestDict), TestDict)
 
 
 def test_dict_decoder():
@@ -119,7 +111,7 @@ def test_inline_dict(encoder_cls):
 	t = copy.deepcopy(TEST_DICT)
 	t['d'] = TestDict()
 	t['d']['x'] = "abc"
-	o: Dict[str, Any] = loads(dumps(t, encoder=encoder_cls))
+	o: MutableMapping[str, Any] = loads(dumps(t, encoder=encoder_cls))
 	assert o == loads(dumps(o, encoder=encoder_cls))
 
 
@@ -133,7 +125,7 @@ def test_inline_dict(encoder_cls):
 		)
 def test_array_sep(encoder_cls):
 	d = {'a': [1, 2, 3]}
-	o: Dict[str, Any] = loads(dumps(d, encoder=encoder_cls))
+	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder_cls))
 	assert o == loads(dumps(o, encoder=encoder_cls))
 
 
@@ -142,7 +134,7 @@ def test_numpy_floats():
 
 	encoder = TomlNumpyEncoder()
 	d = {'a': np.array([1, .3], dtype=np.float64)}
-	o: Dict[str, Any] = loads(dumps(d, encoder=encoder))
+	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder))
 	assert o == loads(dumps(o, encoder=encoder))
 
 	d = {'a': np.array([1, .3], dtype=np.float32)}
@@ -159,7 +151,7 @@ def test_numpy_ints():
 
 	encoder = TomlNumpyEncoder()
 	d = {'a': np.array([1, 3], dtype=np.int64)}
-	o: Dict[str, Any] = loads(dumps(d, encoder=encoder))
+	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder))
 	assert o == loads(dumps(o, encoder=encoder))
 
 	d = {'a': np.array([1, 3], dtype=np.int32)}
@@ -186,13 +178,13 @@ def test_numpy_ints():
 				]
 		)
 def test_ordered(encoder_cls, decoder_cls):
-	o: Dict[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
+	o: MutableMapping[str, Any] = loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
 	assert o == loads(dumps(TEST_DICT, encoder=encoder_cls), decoder=decoder_cls)
 
 
 def test_tuple():
 	d = {'a': (3, 4)}
-	o: Dict[str, Any] = loads(dumps(d))
+	o: MutableMapping[str, Any] = loads(dumps(d))
 	assert o == loads(dumps(o))
 
 
@@ -200,12 +192,12 @@ def test_decimal():
 	PLACES = Decimal(10)**-4
 
 	d = {'a': Decimal("0.1")}
-	o: Dict[str, Any] = loads(dumps(d))
+	o: MutableMapping[str, Any] = loads(dumps(d))
 	assert o == loads(dumps(o))
 	assert Decimal(o['a']).quantize(PLACES) == d['a'].quantize(PLACES)
 
 	with pytest.raises(TypeError):
-		loads(2)  # type: ignore[call-overload]
+		loads(2)  # type: ignore[arg-type]
 
 	if sys.version_info < (3, 12):
 		error_msg = "expected str, bytes or os.PathLike object, not int"
@@ -213,7 +205,7 @@ def test_decimal():
 		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'int'"
 
 	with pytest.raises(TypeError, match=error_msg):
-		load(2)  # type: ignore[call-overload]
+		load(2)  # type: ignore[arg-type]
 
 	if sys.version_info < (3, 12):
 		error_msg = "expected str, bytes or os.PathLike object, not list"
@@ -221,7 +213,7 @@ def test_decimal():
 		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'list'"
 
 	with pytest.raises(TypeError, match=error_msg):
-		load([])  # type: ignore[call-overload]
+		load([])  # type: ignore[arg-type]
 
 	if sys.version_info < (3, 12):
 		error_msg = "argument should be a str object or an os.PathLike object returning str, not <class 'bytes'>"
@@ -229,7 +221,7 @@ def test_decimal():
 		error_msg = "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'bytes"
 
 	with pytest.raises(TypeError, match=error_msg):
-		load(b"test.toml")  # type: ignore[call-overload]
+		load(b"test.toml")  # type: ignore[arg-type]
 
 
 class FakeFile:
@@ -246,8 +238,8 @@ class FakeFile:
 
 def test_dump(tmp_pathplus):
 	dump(TEST_DICT, tmp_pathplus / "file.toml")
-	dump(load(tmp_pathplus / "file.toml", dict_=OrderedDict), tmp_pathplus / "file2.toml")
-	dump(load(tmp_pathplus / "file2.toml", dict_=OrderedDict), tmp_pathplus / "file3.toml")
+	dump(load(tmp_pathplus / "file.toml", decoder=TomlDecoder(OrderedDict)), tmp_pathplus / "file2.toml")
+	dump(load(tmp_pathplus / "file2.toml", decoder=TomlDecoder(OrderedDict)), tmp_pathplus / "file3.toml")
 
 	assert (tmp_pathplus / "file2.toml").read_text() == (tmp_pathplus / "file3.toml").read_text()
 
@@ -265,7 +257,7 @@ def test_nonexistent():
 
 
 def test_commutativity():
-	o: Dict[str, Any] = loads(dumps(TEST_DICT))
+	o: MutableMapping[str, Any] = loads(dumps(TEST_DICT))
 	assert o == loads(dumps(o))
 
 
@@ -286,7 +278,7 @@ path = "{sep}home{sep}edgy"
 
 
 def test_deepcopy_timezone():
-	o: Dict[str, Any] = loads("dob = 1979-05-24T07:32:00-08:00")
-	o2: Dict[str, Any] = copy.deepcopy(o)
+	o: MutableMapping[str, Any] = loads("dob = 1979-05-24T07:32:00-08:00")
+	o2: MutableMapping[str, Any] = copy.deepcopy(o)
 	assert o2["dob"] == o["dob"]
 	assert o2["dob"] is not o["dob"]
