@@ -79,3 +79,4 @@ def setup(app):
 
 
 autodoc_show_sourcelink = True
+nitpicky = True

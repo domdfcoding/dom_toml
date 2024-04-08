@@ -109,7 +109,7 @@ def loads(
 	Parse the given string as TOML.
 
 	:param s:
-	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
+	:param decoder: The :class:`~.TomlEncoder` to use for constructing the output string.
 
 	:returns: A mapping containing the ``TOML`` data.
 
@@ -133,7 +133,7 @@ def load(
 	Parse TOML from the given file.
 
 	:param filename: The filename to read from to.
-	:param decoder: The :class:`toml.TomlEncoder` to use for constructing the output string.
+	:param decoder: The :class:`~.TomlEncoder` to use for constructing the output string.
 
 	:returns: A mapping containing the ``TOML`` data.
 
