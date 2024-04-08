@@ -12,7 +12,7 @@ Dom's custom encoder for Tom's Obvious, Minimal Language.
 #  Based on https://github.com/hukkin/tomli-w
 #  MIT Licensed
 #  Copyright (c) 2021 Taneli Hukkinen
-
+#
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
 #  in the Software without restriction, including without limitation the rights
@@ -38,7 +38,7 @@ import string
 from datetime import date, datetime, time
 from decimal import Decimal
 from types import MappingProxyType
-from typing import Any, Dict, Generator, List, Mapping, Tuple, Union
+from typing import Any, Dict, Iterator, List, Mapping, Tuple, Union
 
 # this package
 from dom_toml.decoder import InlineTableDict
@@ -69,13 +69,9 @@ class TomlEncoder:
 	:param allow_multiline:
 	:param separator:
 
-	.. versionchanged:: 0.2.0
-
-		Moved from ``__init__.py``
-
-	.. versionchanged:: 2.0.0
-
-		Assed ``allow_multiline``  argument.
+	.. versionchanged:: 0.2.0  Moved from ``__init__.py``
+	.. versionchanged:: 2.0.0  Added ``allow_multiline``  argument.
+	.. autosummary-widths:: 45/100
 	"""
 
 	# The maximum width of the list **value**, after which it will be wrapped.
@@ -97,7 +93,7 @@ class TomlEncoder:
 			*,
 			name: str,
 			inside_aot: bool = False,
-			) -> Generator[str, None, None]:
+			) -> Iterator[str]:
 		"""
 		Serialise the given table.
 
@@ -119,7 +115,7 @@ class TomlEncoder:
 				literals.append((k, v))
 			elif isinstance(v, dict):
 				tables.append((k, v, False))
-			elif self.is_aot(v) and not all(self.is_suitable_inline_table(t) for t in v):
+			elif self._is_aot(v) and not all(self._is_suitable_inline_table(t) for t in v):
 				tables.extend((k, t, True) for t in v)
 			else:
 				literals.append((k, v))
@@ -138,6 +134,7 @@ class TomlEncoder:
 				yield '\n'
 			else:
 				yielded = True
+
 			key_part = self.format_key_part(k)
 			display_name = f"{name}.{key_part}" if name else key_part
 
@@ -233,11 +230,13 @@ class TomlEncoder:
 
 		if not len(obj):
 			return "[]"
+
 		item_indent = ARRAY_INDENT * (1 + nest_level)
 		closing_bracket_indent = ARRAY_INDENT * nest_level
 		single_line = "[ " + ", ".join(
 				self.format_literal(item, nest_level=nest_level + 1) for item in obj
 				) + f",]"
+
 		if len(single_line) <= self.max_width:
 			return single_line
 		else:
@@ -271,6 +270,7 @@ class TomlEncoder:
 		:rtype:
 
 		.. versionadded:: 2.0.0
+		.. latex:clearpage::
 		"""
 
 		do_multiline = allow_multiline and '\n' in s
@@ -301,28 +301,20 @@ class TomlEncoder:
 				seq_start = pos + 1
 			pos += 1
 
-	def is_aot(self, obj: Any) -> bool:
+	def _is_aot(self, obj: Any) -> bool:
 		"""
 		Decides if an object behaves as an array of tables (i.e. a nonempty list of dicts).
 
 		:param obj:
-
-		:rtype:
-
-		.. versionadded:: 2.0.0
 		"""
 
 		return bool(isinstance(obj, ARRAY_TYPES) and obj and all(isinstance(v, dict) for v in obj))
 
-	def is_suitable_inline_table(self, obj: dict) -> bool:
+	def _is_suitable_inline_table(self, obj: dict) -> bool:
 		"""
 		Use heuristics to decide if the inline-style representation is a good choice for a given table.
 
 		:param obj:
-
-		:rtype:
-
-		.. versionadded:: 2.0.0
 		"""
 
 		# if self.preserve and isinstance(dict, InlineTableDict):

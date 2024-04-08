@@ -46,6 +46,7 @@ keywords:
 sphinx_conf_epilogue:
   - autodoc_show_sourcelink = True
   - nitpicky = True
+  - needspace_amount = r"3\baselineskip"
 #  - source_link_target = "github"
 
 extra_sphinx_extensions:

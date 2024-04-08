@@ -61,7 +61,7 @@ TEST_DICT: Dict[str, Any] = {'a': {'b': 1, 'c': 2}}
 def test_bug_196():
 	d = datetime.datetime.now()
 	bug_dict = {'x': d}
-	round_trip_bug_dict: MutableMapping[str, Any] = loads(dumps(bug_dict))
+	round_trip_bug_dict: Dict[str, Any] = loads(dumps(bug_dict))
 	assert round_trip_bug_dict == bug_dict
 	assert round_trip_bug_dict['x'] == bug_dict['x']
 
@@ -91,7 +91,7 @@ def test_inline_dict():
 		)
 def test_array_sep(encoder_cls):
 	d = {'a': [1, 2, 3]}
-	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder_cls))
+	o: Dict[str, Any] = loads(dumps(d, encoder=encoder_cls))
 	assert o == loads(dumps(o, encoder=encoder_cls))
 
 
@@ -100,7 +100,7 @@ def test_numpy_floats():
 
 	encoder = TomlNumpyEncoder()
 	d = {'a': np.array([1, .3], dtype=np.float64)}
-	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder))
+	o: Dict[str, Any] = loads(dumps(d, encoder=encoder))
 	assert o == loads(dumps(o, encoder=encoder))
 
 	d = {'a': np.array([1, .3], dtype=np.float32)}
@@ -117,7 +117,7 @@ def test_numpy_ints():
 
 	encoder = TomlNumpyEncoder()
 	d = {'a': np.array([1, 3], dtype=np.int64)}
-	o: MutableMapping[str, Any] = loads(dumps(d, encoder=encoder))
+	o: Dict[str, Any] = loads(dumps(d, encoder=encoder))
 	assert o == loads(dumps(o, encoder=encoder))
 
 	d = {'a': np.array([1, 3], dtype=np.int32)}
@@ -150,7 +150,7 @@ def test_numpy_ints():
 
 def test_tuple():
 	d = {'a': (3, 4)}
-	o: MutableMapping[str, Any] = loads(dumps(d))
+	o: Dict[str, Any] = loads(dumps(d))
 	assert o == loads(dumps(o))
 
 
@@ -158,7 +158,7 @@ def test_decimal():
 	PLACES = Decimal(10)**-4
 
 	d = {'a': Decimal("0.1")}
-	o: MutableMapping[str, Any] = loads(dumps(d))
+	o: Dict[str, Any] = loads(dumps(d))
 	assert o == loads(dumps(o))
 	assert Decimal(o['a']).quantize(PLACES) == d['a'].quantize(PLACES)
 
@@ -223,7 +223,7 @@ def test_nonexistent():
 
 
 def test_commutativity():
-	o: MutableMapping[str, Any] = loads(dumps(TEST_DICT))
+	o: Dict[str, Any] = loads(dumps(TEST_DICT))
 	assert o == loads(dumps(o))
 
 
@@ -244,7 +244,7 @@ path = "{sep}home{sep}edgy"
 
 
 def test_deepcopy_timezone():
-	o: MutableMapping[str, Any] = loads("dob = 1979-05-24T07:32:00-08:00")
-	o2: MutableMapping[str, Any] = copy.deepcopy(o)
+	o: Dict[str, Any] = loads("dob = 1979-05-24T07:32:00-08:00")
+	o2: Dict[str, Any] = copy.deepcopy(o)
 	assert o2["dob"] == o["dob"]
 	assert o2["dob"] is not o["dob"]

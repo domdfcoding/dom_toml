@@ -69,6 +69,8 @@ class TomlDecoder:
 		:param s:
 
 		:returns: A mapping containing the ``TOML`` data.
+
+		.. latex:clearpage::
 		"""
 
 		try:
