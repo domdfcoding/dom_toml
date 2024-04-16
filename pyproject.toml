@@ -31,13 +31,12 @@ classifiers = [
 dependencies = [ "domdf-python-tools>=2.8.0", "tomli>=1.2.3",]
 dynamic = []
 
+[project.license]
+file = "LICENSE"
+
 [[project.authors]]
 name = "Dominic Davis-Foster"
 email = "dominic@davis-foster.co.uk"
-
-
-[project.license]
-file = "LICENSE"
 
 [project.urls]
 Homepage = "https://github.com/domdfcoding/dom_toml"
@@ -151,6 +150,16 @@ show_error_codes = true
 [tool.snippet-fmt]
 directives = [ "code-block",]
 
+[tool.snippet-fmt.languages.python]
+reformat = true
+
+[tool.snippet-fmt.languages.TOML]
+reformat = true
+
+[tool.snippet-fmt.languages.ini]
+
+[tool.snippet-fmt.languages.json]
+
 [tool.dependency-dash."requirements.txt"]
 order = 10
 
@@ -161,13 +170,3 @@ include = false
 [tool.dependency-dash."doc-source/requirements.txt"]
 order = 30
 include = false
-
-[tool.snippet-fmt.languages.python]
-reformat = true
-
-[tool.snippet-fmt.languages.TOML]
-reformat = true
-
-[tool.snippet-fmt.languages.ini]
-
-[tool.snippet-fmt.languages.json]
