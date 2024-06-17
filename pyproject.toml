@@ -28,8 +28,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
-dynamic = []
 dependencies = [ "domdf-python-tools>=2.8.0", "tomli>=1.2.3",]
+dynamic = []
 
 [project.license]
 file = "LICENSE"
