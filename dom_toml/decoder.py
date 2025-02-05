@@ -39,10 +39,15 @@ TOML decoders.
 #
 
 # stdlib
+import sys
 from typing import Any, Callable, Dict, Tuple
 
-# 3rd party
-import tomli
+if sys.version_info >= (3, 11):  # pragma: no cover
+	# stdlib
+	import tomllib as tomli
+else:  # pragma: no cover
+	# 3rd party
+	import tomli
 
 __all__ = ["InlineTableDict", "TomlDecoder", "TomlPureDecoder"]
 
