@@ -76,8 +76,14 @@ class TomlDecoder:
 		try:
 			pit = tomli._parser.parse_inline_table
 
-			def _parse_inline_table(src: str, pos: int, parse_float: Callable[[str], Any]) -> Tuple[int, Dict]:
-				pos, table = pit(src, pos, parse_float)
+			def _parse_inline_table(
+					src: str,
+					pos: int,
+					parse_float: Callable[[str], Any],
+					*args,
+					**kwargs,
+					) -> Tuple[int, Dict]:
+				pos, table = pit(src, pos, parse_float, *args, **kwargs)
 				return pos, InlineTableDict(table)
 
 			tomli._parser.parse_inline_table = _parse_inline_table
