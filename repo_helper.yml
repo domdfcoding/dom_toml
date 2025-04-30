@@ -51,3 +51,6 @@ extra_sphinx_extensions:
  - sphinx_toolbox.more_autosummary.column_widths
 
 pre_commit_exclude: "^tests/tests_for_tomliw/data/.*$"
+
+exclude_files:
+ - actions
