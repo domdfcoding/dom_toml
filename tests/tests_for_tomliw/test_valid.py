@@ -1,4 +1,5 @@
 # stdlib
+import sys
 from decimal import Decimal
 from math import isnan
 from pathlib import Path
@@ -6,7 +7,13 @@ from typing import Union
 
 # 3rd party
 import pytest
-import tomli
+
+if sys.version_info >= (3, 11):
+    # stdlib
+    import tomllib as tomli
+else:
+    # 3rd party
+    import tomli
 
 # this package
 import dom_toml

@@ -1,5 +1,10 @@
-# 3rd party
-import tomli
+import sys
+if sys.version_info >= (3, 11):
+    # stdlib
+    import tomllib as tomli
+else:
+    # 3rd party
+    import tomli
 
 # this package
 import dom_toml
