@@ -1,10 +1,10 @@
 # stdlib
 import sys
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # pragma: no cover (<py311)
 	# stdlib
 	import tomllib as tomli
-else:
+else:  # pragma: no cover (py311+)
 	# 3rd party
 	import tomli
 
