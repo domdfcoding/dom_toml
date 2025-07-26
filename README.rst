@@ -101,7 +101,7 @@ dom_toml
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/dom_toml
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/dom_toml/v2.0.1
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/dom_toml/v2.1.0
 	:target: https://github.com/domdfcoding/dom_toml/pulse
 	:alt: GitHub commits since tagged version
 
