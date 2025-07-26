@@ -28,7 +28,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
-dependencies = [ "domdf-python-tools>=2.8.0", "tomli>=1.2.3",]
+dependencies = [ "domdf-python-tools>=2.8.0", 'tomli>=1.2.3; python_version < "3.11"',]
 dynamic = []
 
 [project.license]
