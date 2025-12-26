@@ -214,37 +214,37 @@ authors = [{{name = "Łukasz Langa"}}]
 						f'{MINIMAL_CONFIG}\nkeywords = [1, 2, 3, 4, 5]',
 						TypeError,
 						r"Invalid type for 'project.keywords\[0\]': expected <class 'str'>, got <class 'int'>",
-						id="keywords_wrong_type"
+						id="keywords_wrong_type",
 						),
 				pytest.param(
 						f'{MINIMAL_CONFIG}\ndescription = [1, 2, 3, 4, 5]',
 						TypeError,
 						r"Invalid type for 'project.description': expected <class 'str'>, got <class 'list'>",
-						id="description_wrong_type"
+						id="description_wrong_type",
 						),
 				pytest.param(
 						f'{MINIMAL_CONFIG}\ndescription = 12345',
 						TypeError,
 						r"Invalid type for 'project.description': expected <class 'str'>, got <class 'int'>",
-						id="description_wrong_type"
+						id="description_wrong_type",
 						),
 				pytest.param(
 						f'{MINIMAL_CONFIG}\nclassifiers = [1, 2, 3, 4, 5]',
 						TypeError,
 						r"Invalid type for 'project.classifiers\[0\]': expected <class 'str'>, got <class 'int'>",
-						id="classifiers_wrong_type"
+						id="classifiers_wrong_type",
 						),
 				pytest.param(
 						f'{MINIMAL_CONFIG}\ndependencies = [1, 2, 3, 4, 5]',
 						TypeError,
 						r"Invalid type for 'project.dependencies\[0\]': expected <class 'str'>, got <class 'int'>",
-						id="dependencies_wrong_type"
+						id="dependencies_wrong_type",
 						),
 				pytest.param(
 						f'{MINIMAL_CONFIG}\nurls = {{foo = 1234}}',
 						TypeError,
 						r"Invalid value type for 'project.urls.foo': expected <class 'str'>, got <class 'int'>",
-						id="urls_wrong_type"
+						id="urls_wrong_type",
 						),
 				]
 		)

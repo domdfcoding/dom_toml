@@ -1,4 +1,5 @@
 # stdlib
+import pathlib
 import sys
 from decimal import Decimal
 from math import isnan
@@ -33,7 +34,7 @@ VALID_FILES = tuple(
 		VALID_FILES,
 		ids=[p.stem for p in VALID_FILES],
 		)
-def test_valid(valid):
+def test_valid(valid: pathlib.Path):
 	original_str = valid.read_bytes().decode()
 	original_data = tomli.loads(original_str)
 	dump_str = dom_toml.dumps(original_data)
@@ -62,5 +63,5 @@ def replace_nans(cont: Union[dict, list]) -> Union[dict, list]:
 				({"crlf-newline": "foo\r\nbar"}, 'crlf-newline = """\nfoo\nbar"""\n', True),
 				],
 		)
-def test_obj_to_str_mapping(obj, expected_str, multiline_strings):
+def test_obj_to_str_mapping(obj: dict, expected_str: str, multiline_strings: bool):
 	assert dom_toml.dumps(obj, encoder=TomlEncoder(multiline_strings=multiline_strings)) == expected_str

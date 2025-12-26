@@ -40,6 +40,7 @@ from typing import Any, Dict
 
 # 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
 # this package
 import dom_toml
@@ -89,7 +90,7 @@ def test_inline_dict():
 				pytest.param(TomlArraySeparatorEncoder(separator=",\t"), id="instance_tab"),
 				]
 		)
-def test_array_sep(encoder_cls):
+def test_array_sep(encoder_cls: TomlEncoder):
 	d = {'a': [1, 2, 3]}
 	o: Dict[str, Any] = loads(dumps(d, encoder=encoder_cls))
 	assert o == loads(dumps(o, encoder=encoder_cls))
@@ -192,17 +193,17 @@ def test_decimal():
 
 class FakeFile:
 
-	def __init__(self):
+	def __init__(self) -> None:
 		self.written = ''
 
-	def write(self, s):
+	def write(self, s: str) -> None:
 		self.written += s
 
-	def read(self):
+	def read(self) -> str:
 		return self.written
 
 
-def test_dump(tmp_pathplus):
+def test_dump(tmp_pathplus: PathPlus):
 	dump(TEST_DICT, tmp_pathplus / "file.toml")
 	dump(load(tmp_pathplus / "file.toml"), tmp_pathplus / "file2.toml")
 	dump(load(tmp_pathplus / "file2.toml"), tmp_pathplus / "file3.toml")
@@ -233,7 +234,7 @@ def test_commutativity():
 				pytest.param(TomlPathlibEncoder(), id="instance"),
 				]
 		)
-def test_pathlib(encoder_cls):
+def test_pathlib(encoder_cls: TomlEncoder):
 	o = {"root": {"path": pathlib.Path("/home/edgy")}}
 	sep = "\\\\" if os.sep == '\\' else '/'
 	test_str = f"""[root]

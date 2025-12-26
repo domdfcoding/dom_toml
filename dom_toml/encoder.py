@@ -66,8 +66,7 @@ class TomlEncoder:
 	TOML encoder which wraps long lists onto multiple lines and adds a blank line before arrays of tables.
 
 	:param preserve:
-	:param allow_multiline:
-	:param separator:
+	:param multiline_strings:
 
 	.. versionchanged:: 0.2.0  Moved from ``__init__.py``
 	.. versionchanged:: 2.0.0  Added ``allow_multiline``  argument.
@@ -97,6 +96,7 @@ class TomlEncoder:
 		"""
 		Serialise the given table.
 
+		:param table:
 		:param name: The table name.
 		:param inside_aot:
 
@@ -385,7 +385,7 @@ class TomlArraySeparatorEncoder(TomlEncoder):
 	TOML Encoder with adjustable array separator.
 
 	:param preserve:
-	:param allow_multiline:
+	:param multiline_strings:
 	:param separator:
 
 	.. versionadded:: 2.0.0

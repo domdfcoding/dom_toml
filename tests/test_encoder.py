@@ -91,13 +91,15 @@ def test_encoder_tuples(data: Dict[str, Any], advanced_file_regression: Advanced
 def test_encoder_inline_table(advanced_file_regression: AdvancedFileRegressionFixture):
 	source = "[project]\nreadme = {file = 'README.rst', content-type = 'text/x-rst'}\n"
 	advanced_file_regression.check(
-			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
+			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)),
+			extension=".toml",
 			)
 
 
 def test_encoder_inline_table_nested(advanced_file_regression: AdvancedFileRegressionFixture):
 	source = "[project]\nreadme = {file = 'README.rst', nested = {content-type = 'text/x-rst'}}\n"
 	advanced_file_regression.check(
-			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)), extension=".toml"
+			dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)),
+			extension=".toml",
 			)
 	dom_toml.loads(dom_toml.dumps(dom_toml.loads(source), encoder=TomlEncoder(preserve=True)))
