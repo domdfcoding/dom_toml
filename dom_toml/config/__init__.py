@@ -43,7 +43,7 @@ from typing_extensions import Self  # nodep
 # this package
 import dom_toml
 
-__all__ = ["Config", "subtable_field"]
+__all__ = ["Config", "ConfigMeta", "subtable_field"]
 
 _C = TypeVar("_C", bound="Config")
 
@@ -62,8 +62,20 @@ def subtable_field(submethod_type: Type[_C]) -> _C:
 	return attrs.field(factory=submethod_type, converter=submethod_type._coerce, on_setattr=on_setattr)
 
 
-@attrs.define
-class Config:
+class ConfigMeta(type):
+	"""
+	Metaclass for :class:`~.Config`, which automatically decorates classes and subclasses with ``attrs.define``.
+	"""
+
+	def __new__(mcls, name, bases, ns):
+		cls = super().__new__(mcls, name, bases, ns)
+		if "__attrs_props__" in cls.__dict__:
+			return cls
+		else:
+			return attrs.define(cls)
+
+
+class Config(metaclass=ConfigMeta):
 	"""
 	Configuration parsed from a TOML file.
 	"""

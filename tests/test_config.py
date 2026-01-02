@@ -12,7 +12,6 @@ from dom_toml.config import Config, subtable_field
 from dom_toml.config.fields import Boolean, Integer, Number, String
 
 
-@attrs.define
 class SavitzkyGolayMethod(Config):
 
 	enable: bool = Boolean.field(default=True)
@@ -29,7 +28,6 @@ def _convert_sg_method(method: Union[bool, "SavitzkyGolayMethod", Dict[str, Any]
 		return SavitzkyGolayMethod(**method)
 
 
-@attrs.define
 class IntensityMatrixMethod(Config):
 
 	crop_mass_range: Optional[Tuple[int, int]] = attrs.field(default=(50, 500))
@@ -43,7 +41,6 @@ class IntensityMatrixMethod(Config):
 	tophat_structure_size: str = String.field(default="1.5m")
 
 
-@attrs.define
 class PeakDetectionMethod(Config):
 
 	points: int = Integer.field(default=10)
@@ -58,7 +55,6 @@ def default_base_peak_filter() -> Sequence[int]:
 	return (73, 147)
 
 
-@attrs.define
 class PeakFilterMethod(Config):
 
 	noise_filter: bool = Boolean.field(default=True)
@@ -70,7 +66,6 @@ class PeakFilterMethod(Config):
 			)
 
 
-@attrs.define
 class AlignmentMethod(Config):
 
 	rt_modulation: float = Number.field(default=2.5)
@@ -80,7 +75,6 @@ class AlignmentMethod(Config):
 	min_peak_area: float = Number.field(default=0.0)
 
 
-@attrs.define
 class ConsolidateMethod(Config):
 
 	name_filter: List[str] = attrs.field(converter=list, default=attrs.Factory(list))
@@ -88,7 +82,6 @@ class ConsolidateMethod(Config):
 	min_appearances: int = Integer.field(default=-1)
 
 
-@attrs.define
 class Method(Config):
 	"""
 	Overall GunShotMatch method.
@@ -219,7 +212,6 @@ def test_coerce_error():
 		Method(intensity_matrix="banana")  # type: ignore[arg-type]
 
 
-@attrs.define
 class FieldsMethod(Config):
 
 	boolean_field: bool = Boolean.field(default=True)
@@ -228,7 +220,6 @@ class FieldsMethod(Config):
 	string_field: float = String.field(default="abcdefg")
 
 
-@attrs.define
 class FieldsMethodNew(Config):
 
 	boolean_field: bool = Boolean(default=True)  # type: ignore[assignment]
