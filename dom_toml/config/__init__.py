@@ -6,6 +6,8 @@ Nested configuration parsed from a TOML file.
 
 .. extras-require:: config
 	:pyproject:
+
+.. versionadded:: 2.2.0
 """
 #
 #  Copyright © 2026 Dominic Davis-Foster <dominic@davis-foster.co.uk>
