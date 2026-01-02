@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "dom_toml"
-version = "2.1.0"
+version = "2.2.0"
 description = "Dom's tools for Tom's Obvious, Minimal Language."
 readme = "README.rst"
 requires-python = ">=3.7"
