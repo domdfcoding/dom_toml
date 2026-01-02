@@ -1,0 +1,30 @@
+[method.intensity_matrix]
+crop_mass_range = [
+    50,
+    400,
+]
+savitzky_golay = true
+tophat = true
+tophat_structure_size = "1.5m"
+
+[method.peak_detection]
+points = 30
+scans = 10
+
+[method.peak_filter]
+noise_filter = true
+noise_threshold = 2
+base_peak_filter = [
+    73,
+    147,
+]
+
+[method.alignment]
+min_peaks = -1
+top_n_peaks = 0
+# top_n_peaks = 1000
+
+[method.consolidate]
+name_filter=["*silane*", "*silyl*", "*silox*"]
+min_match_factor=600
+min_appearances=-1

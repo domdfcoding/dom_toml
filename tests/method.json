@@ -1,0 +1,38 @@
+{
+  "method": {
+    "alignment": {
+      "min_peaks": -1,
+      "top_n_peaks": 0
+    },
+    "consolidate": {
+      "min_appearances": -1,
+      "min_match_factor": 600,
+      "name_filter": [
+        "*silane*",
+        "*silyl*",
+        "*silox*"
+      ]
+    },
+    "intensity_matrix": {
+      "crop_mass_range": [
+        50,
+        400
+      ],
+      "savitzky_golay": true,
+      "tophat": true,
+      "tophat_structure_size": "1.5m"
+    },
+    "peak_detection": {
+      "points": 30,
+      "scans": 10
+    },
+    "peak_filter": {
+      "base_peak_filter": [
+        73,
+        147
+      ],
+      "noise_filter": true,
+      "noise_threshold": 2
+    }
+  }
+}

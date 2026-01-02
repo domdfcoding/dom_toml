@@ -1,0 +1,3 @@
+[method]
+points = 10
+scans = 1

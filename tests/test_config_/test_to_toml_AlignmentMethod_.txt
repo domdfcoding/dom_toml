@@ -1,0 +1,6 @@
+[method]
+rt_modulation = 2.5
+gap_penalty = 0.3
+min_peaks = 1
+top_n_peaks = 80
+min_peak_area = 0.0

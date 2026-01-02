@@ -1,0 +1,36 @@
+[method.intensity_matrix]
+crop_mass_range = [
+    50,
+    500,
+]
+tophat = true
+tophat_structure_size = "1.5m"
+
+[method.intensity_matrix.savitzky_golay]
+enable = true
+window = 7
+degree = 2
+
+[method.peak_detection]
+points = 10
+scans = 1
+
+[method.peak_filter]
+noise_filter = true
+noise_threshold = 2
+base_peak_filter = [
+    73,
+    147,
+]
+
+[method.alignment]
+rt_modulation = 2.5
+gap_penalty = 0.3
+min_peaks = 1
+top_n_peaks = 80
+min_peak_area = 0.0
+
+[method.consolidate]
+name_filter = []
+min_match_factor = 600
+min_appearances = -1

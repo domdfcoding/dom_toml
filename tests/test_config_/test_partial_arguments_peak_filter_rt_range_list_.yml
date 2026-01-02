@@ -1,0 +1,5 @@
+base_peak_filter:
+- 73
+- 147
+noise_filter: true
+noise_threshold: 2

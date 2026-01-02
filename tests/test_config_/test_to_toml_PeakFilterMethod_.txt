@@ -1,0 +1,7 @@
+[method]
+noise_filter = true
+noise_threshold = 2
+base_peak_filter = [
+    73,
+    147,
+]

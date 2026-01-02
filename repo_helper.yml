@@ -14,6 +14,7 @@ sphinx_html_theme: furo
 standalone_contrib_guide: true
 use_flit: true
 docs_fail_on_warning: true
+tox_testenv_extras: config
 
 # Versions to run tests for
 python_versions:
@@ -27,6 +28,12 @@ python_versions:
  - pypy37
  - pypy38
  - pypy39
+
+extras_require:
+  config:
+    - attrs>=23.1.0
+    - tomli-w>=1.0.0
+    - typing-extensions>=4.7.1
 
 classifiers:
  - 'Development Status :: 4 - Beta'
