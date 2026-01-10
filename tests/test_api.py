@@ -88,7 +88,7 @@ def test_inline_dict():
 				pytest.param(TomlArraySeparatorEncoder, id="type"),
 				pytest.param(TomlArraySeparatorEncoder(), id="instance"),
 				pytest.param(TomlArraySeparatorEncoder(separator=",\t"), id="instance_tab"),
-				]
+				],
 		)
 def test_array_sep(encoder_cls: TomlEncoder):
 	d = {'a': [1, 2, 3]}
@@ -229,10 +229,11 @@ def test_commutativity():
 
 
 @pytest.mark.parametrize(
-		"encoder_cls", [
+		"encoder_cls",
+		[
 				pytest.param(TomlPathlibEncoder, id="type"),
 				pytest.param(TomlPathlibEncoder(), id="instance"),
-				]
+				],
 		)
 def test_pathlib(encoder_cls: TomlEncoder):
 	o = {"root": {"path": pathlib.Path("/home/edgy")}}
