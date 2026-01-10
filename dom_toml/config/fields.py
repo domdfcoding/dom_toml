@@ -71,7 +71,7 @@ class FieldType(Generic[_FT]):
 		inst: object,
 		attr: attrs.Attribute,
 		value: Any,
-		) -> None:
+	) -> None:
 		"""
 		Check if a value conforms to this field's expected datatype.
 
@@ -88,7 +88,7 @@ class FieldType(Generic[_FT]):
 		inst: object,
 		attr: attrs.Attribute,
 		value: Any,
-		) -> None:
+	) -> None:
 		"""
 		Converts values on ``__setattr__``.
 
@@ -159,7 +159,7 @@ class Number(FieldType):
 		inst: object,
 		attr: attrs.Attribute,
 		value: Any,
-		) -> None:
+	) -> None:
 		"""
 		Check if a value is a number.
 
