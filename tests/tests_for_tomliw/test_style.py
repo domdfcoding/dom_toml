@@ -153,11 +153,13 @@ nested-array = [
 
 
 def test_example_issue_12():
-	example = {"table": {"nested_table": [
-			{"array_options": [1, 2, 3]},
-			{"another_array": [1, 2]},
-			{'c': 3},
-			]}}
+	example = {
+			"table": {"nested_table": [
+					{"array_options": [1, 2, 3]},
+					{"another_array": [1, 2]},
+					{'c': 3},
+					]},
+			}
 	expected = """\
 [table]
 nested_table = [ { array_options = [ 1, 2, 3,] }, { another_array = [ 1, 2,] }, { c = 3 },]
@@ -191,8 +193,8 @@ def test_non_trivial_nesting():
 					"aot": [
 							{"nested-table": {"nested_aot": [{'a': [0, 1]}, {'b': 2}, {'c': 3}]}},
 							{"other-nested-table": {'d': 4, 'e': 5, 'f': [{'g': 6}], 'h': [long]}},
-							]
-					}
+							],
+					},
 			}
 
 	expected = """\

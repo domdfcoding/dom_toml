@@ -20,11 +20,13 @@ PEP621 = {
 		"license": {"file": "LICENSE"},
 		}
 
-array_of_tables = {"key": [
-		{"dict1": "dict1_value"},
-		{"dict2": "dict2_value"},
-		{"dict3": "dict3_value"},
-		]}
+array_of_tables = {
+		"key": [
+				{"dict1": "dict1_value"},
+				{"dict2": "dict2_value"},
+				{"dict3": "dict3_value"},
+				],
+		}
 
 
 @pytest.mark.parametrize(
@@ -34,41 +36,43 @@ array_of_tables = {"key": [
 				pytest.param({"key": "☃🚀📦"}, id="unicode"),
 				pytest.param({"key": "string"}, id="string_value"),
 				pytest.param({"key": ["list", 'double ""', "single ''"]}, id="list_value"),
-				pytest.param({
-						"key": [
-								"insure",
-								"auspicious",
-								"neglect",
-								"craven",
-								"match",
-								"worship",
-								"wave",
-								"languid",
-								"bad",
-								"news",
-								"flashy",
-								"recall",
-								"mother",
-								"festive",
-								"cup",
-								'double ""',
-								"single ''",
-								"mixed '\"",
-								"newline\n",
-								"formfeed\f",
-								"carriage_return\r",
-								"backslash\\",
-								"backspace\b",
-								"tab\t",
-								]
-						},
-								id="long_list"),
+				pytest.param(
+						{
+								"key": [
+										"insure",
+										"auspicious",
+										"neglect",
+										"craven",
+										"match",
+										"worship",
+										"wave",
+										"languid",
+										"bad",
+										"news",
+										"flashy",
+										"recall",
+										"mother",
+										"festive",
+										"cup",
+										'double ""',
+										"single ''",
+										"mixed '\"",
+										"newline\n",
+										"formfeed\f",
+										"carriage_return\r",
+										"backslash\\",
+										"backspace\b",
+										"tab\t",
+										],
+								},
+						id="long_list",
+						),
 				pytest.param({"key": {"dict": "dict_value"}}, id="dict_value"),
 				pytest.param(array_of_tables, id="array_of_tables"),
 				pytest.param({"section": {"key": "string"}}, id="section_string_value"),
 				pytest.param({"section": {"key": ["list"]}}, id="section_list_value"),
 				pytest.param({"project": PEP621}, id="pep621"),
-				]
+				],
 		)
 def test_encoder(data: Dict[str, Any], advanced_file_regression: AdvancedFileRegressionFixture):
 	as_toml = dumps(data, encoder=TomlEncoder())
@@ -81,7 +85,7 @@ def test_encoder(data: Dict[str, Any], advanced_file_regression: AdvancedFileReg
 		[
 				pytest.param({"key": ("list", )}, id="tuple_value"),
 				pytest.param({"section": {"key": ("list", )}}, id="section_tuple_value"),
-				]
+				],
 		)
 def test_encoder_tuples(data: Dict[str, Any], advanced_file_regression: AdvancedFileRegressionFixture):
 	as_toml = dumps(data, encoder=TomlEncoder())

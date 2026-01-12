@@ -260,7 +260,7 @@ authors = [{{name = "Łukasz Langa"}}]
 						r"Invalid value type for 'project.urls.foo': expected <class 'str'>, got <class 'int'>",
 						id="urls_wrong_type",
 						),
-				]
+				],
 		)
 def test_parse_config_errors(config: str, expects: Type[Exception], match: str, tmp_pathplus: PathPlus):
 	with pytest.raises(expects, match=match):
@@ -277,7 +277,7 @@ def test_parse_config_errors(config: str, expects: Type[Exception], match: str, 
 				pytest.param(DEPENDENCIES, id="dependencies"),
 				pytest.param(URLS, id="urls"),
 				pytest.param(UNICODE, id="unicode"),
-				]
+				],
 		)
 def test_parse_valid_config(
 		toml_config: str,

@@ -120,7 +120,7 @@ class Method(Config):
 				pytest.param(SavitzkyGolayMethod, id="SavitzkyGolayMethod"),
 				pytest.param(IntensityMatrixMethod, id="IntensityMatrixMethod"),
 				pytest.param(Method, id="Method"),
-				]
+				],
 		)
 def test_default_methods(advanced_data_regression: AdvancedDataRegressionFixture, cls: Type[Config]):
 	method = cls()
@@ -137,7 +137,7 @@ def test_default_methods(advanced_data_regression: AdvancedDataRegressionFixture
 				pytest.param(SavitzkyGolayMethod, id="SavitzkyGolayMethod"),
 				pytest.param(IntensityMatrixMethod, id="IntensityMatrixMethod"),
 				pytest.param(Method, id="Method"),
-				]
+				],
 		)
 def test_to_toml(advanced_file_regression: AdvancedFileRegressionFixture, cls: Type[Config]):
 	method = cls()
@@ -155,13 +155,19 @@ def test_to_toml(advanced_file_regression: AdvancedFileRegressionFixture, cls: T
 				pytest.param(SavitzkyGolayMethod, {"window": 8, "degree": 5}, id="savgol_window_degree"),
 				pytest.param(IntensityMatrixMethod, {"crop_mass_range": [100, 200]}, id="im_mass_range"),
 				pytest.param(
-						IntensityMatrixMethod, {"tophat_structure_size": "2m"}, id="im_tophat_structure_size"
+						IntensityMatrixMethod,
+						{"tophat_structure_size": "2m"},
+						id="im_tophat_structure_size",
 						),
 				pytest.param(
-						IntensityMatrixMethod, {"savitzky_golay": {"enable": False}}, id="im_savgol_dict_false"
+						IntensityMatrixMethod,
+						{"savitzky_golay": {"enable": False}},
+						id="im_savgol_dict_false",
 						),
 				pytest.param(
-						IntensityMatrixMethod, {"savitzky_golay": {"window": 10}}, id="im_savgol_dict_window"
+						IntensityMatrixMethod,
+						{"savitzky_golay": {"window": 10}},
+						id="im_savgol_dict_window",
 						),
 				pytest.param(IntensityMatrixMethod, {"savitzky_golay": False}, id="im_savgol_false"),
 				pytest.param(PeakDetectionMethod, {"points": 8}, id="peak_detection_points"),
@@ -169,19 +175,21 @@ def test_to_toml(advanced_file_regression: AdvancedFileRegressionFixture, cls: T
 				pytest.param(PeakFilterMethod, {"noise_filter": False}, id="peak_filter_noise_filter"),
 				pytest.param(PeakFilterMethod, {"noise_threshold": 5}, id="peak_filter_noise_threshold"),
 				pytest.param(
-						PeakFilterMethod, {"base_peak_filter": [1, 2, 3, 4, 5]},
-						id="peak_filter_base_peak_filter_list"
+						PeakFilterMethod,
+						{"base_peak_filter": [1, 2, 3, 4, 5]},
+						id="peak_filter_base_peak_filter_list",
 						),
 				pytest.param(
-						PeakFilterMethod, {"base_peak_filter": {1, 2, 3, 4, 5}},
-						id="peak_filter_base_peak_filter_set"
+						PeakFilterMethod,
+						{"base_peak_filter": {1, 2, 3, 4, 5}},
+						id="peak_filter_base_peak_filter_set",
 						),
 				pytest.param(AlignmentMethod, {"rt_modulation": 10}, id="alignment_rt_modulation"),
 				pytest.param(AlignmentMethod, {"gap_penalty": 0.2}, id="alignment_gap_penalty"),
 				pytest.param(AlignmentMethod, {"min_peaks": 5}, id="alignment_min_peaks"),
 				pytest.param(AlignmentMethod, {"top_n_peaks": 50}, id="alignment_top_n_peaks"),
 				pytest.param(AlignmentMethod, {"min_peak_area": 1.5e6}, id="alignment_min_peak_area"),
-				]
+				],
 		)
 def test_partial_arguments(
 		advanced_data_regression: AdvancedDataRegressionFixture,
@@ -264,12 +272,13 @@ def test_fields(method: Type[Config]):
 
 	with pytest.raises(
 			TypeError,
-			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'NoneType'"
+			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'NoneType'",
 			):
 		method(integer_field=None)
 
 	with pytest.raises(
-			TypeError, match=r"float\(\) argument must be a string or a (real )?number, not 'NoneType'"
+			TypeError,
+			match=r"float\(\) argument must be a string or a (real )?number, not 'NoneType'",
 			):
 		method(number_field=None)
 
@@ -279,7 +288,7 @@ def test_fields(method: Type[Config]):
 
 	with pytest.raises(
 			TypeError,
-			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'dict'"
+			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'dict'",
 			):
 		method(integer_field={"abcdefg": None})
 
@@ -312,12 +321,13 @@ def test_fields(method: Type[Config]):
 
 	with pytest.raises(
 			TypeError,
-			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'NoneType'"
+			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'NoneType'",
 			):
 		method().integer_field = None
 
 	with pytest.raises(
-			TypeError, match=r"float\(\) argument must be a string or a (real )?number, not 'NoneType'"
+			TypeError,
+			match=r"float\(\) argument must be a string or a (real )?number, not 'NoneType'",
 			):
 		method().number_field = None
 
@@ -327,7 +337,7 @@ def test_fields(method: Type[Config]):
 
 	with pytest.raises(
 			TypeError,
-			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'dict'"
+			match=r"int\(\) argument must be a string, a bytes-like object or a (real )?number, not 'dict'",
 			):
 		method().integer_field = {"abcdefg": None}
 

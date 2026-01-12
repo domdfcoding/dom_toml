@@ -233,9 +233,7 @@ class TomlEncoder:
 
 		item_indent = ARRAY_INDENT * (1 + nest_level)
 		closing_bracket_indent = ARRAY_INDENT * nest_level
-		single_line = "[ " + ", ".join(
-				self.format_literal(item, nest_level=nest_level + 1) for item in obj
-				) + f",]"
+		single_line = "[ " + ", ".join(self.format_literal(item, nest_level=nest_level + 1) for item in obj) + ",]"
 
 		if len(single_line) <= self.max_width:
 			return single_line
