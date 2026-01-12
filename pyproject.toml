@@ -45,8 +45,8 @@ Homepage = "https://github.com/domdfcoding/dom_toml"
 Documentation = "https://dom-toml.readthedocs.io/en/latest"
 
 [project.optional-dependencies]
-config = [ "attrs>=23.1.0", "tomli-w>=1.0.0",]
-all = [ "attrs>=23.1.0", "tomli-w>=1.0.0",]
+config = [ "attrs>=23.1.0", "tomli-w>=1.0.0", "typing-extensions>=4.7.1",]
+all = [ "attrs>=23.1.0", "tomli-w>=1.0.0", "typing-extensions>=4.7.1",]
 
 [tool.mkrecipe]
 conda-channels = [ "conda-forge", "domdfcoding",]

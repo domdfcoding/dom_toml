@@ -113,7 +113,7 @@ dom_toml
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/dom_toml
-	:target: https://pypi.org/project/dom_toml/
+	:target: https://pypistats.org/packages/dom_toml
 	:alt: PyPI - Downloads
 
 .. end shields
