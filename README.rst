@@ -129,7 +129,7 @@ To install with ``pip``:
 
 .. code-block:: bash
 
-	$ python -m pip install dom_toml
+	$ python -m pip install dom-toml
 
 To install with ``conda``:
 

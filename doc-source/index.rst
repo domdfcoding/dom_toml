@@ -131,6 +131,7 @@ Installation
 
 .. installation:: dom_toml
 	:pypi:
+	:pypi-name: dom-toml
 	:github:
 	:anaconda:
 	:conda-channels: conda-forge, domdfcoding
