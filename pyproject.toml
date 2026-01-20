@@ -48,11 +48,6 @@ Documentation = "https://dom-toml.readthedocs.io/en/latest"
 config = [ "attrs>=23.1.0", "tomli-w>=1.0.0", "typing-extensions>=4.7.1",]
 all = [ "attrs>=23.1.0", "tomli-w>=1.0.0", "typing-extensions>=4.7.1",]
 
-[tool.mkrecipe]
-conda-channels = [ "conda-forge", "domdfcoding",]
-extras = "all"
-license-key = "MIT"
-
 [tool.sphinx-pyproject]
 github_username = "domdfcoding"
 github_repository = "dom_toml"

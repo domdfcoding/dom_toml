@@ -90,12 +90,12 @@ dom_toml
 		:wheel:
 		:alt: PyPI - Wheel
 
-	.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/dom_toml?logo=anaconda
-		:target: https://anaconda.org/domdfcoding/dom_toml
+	.. |conda-version| image:: https://img.shields.io/conda/v/conda-forge/dom-toml?logo=anaconda
+		:target: https://anaconda.org/conda-forge/dom-toml
 		:alt: Conda - Package Version
 
-	.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/dom_toml?label=conda%7Cplatform
-		:target: https://anaconda.org/domdfcoding/dom_toml
+	.. |conda-platform| image:: https://img.shields.io/conda/pn/conda-forge/dom-toml?label=conda%7Cplatform
+		:target: https://anaconda.org/conda-forge/dom-toml
 		:alt: Conda - Platform
 
 	.. |license| github-shield::
@@ -134,7 +134,8 @@ Installation
 	:pypi-name: dom-toml
 	:github:
 	:anaconda:
-	:conda-channels: conda-forge, domdfcoding
+	:conda-name: dom-toml
+	:conda-channels: conda-forge
 
 .. end installation
 

@@ -86,12 +86,12 @@ dom_toml
 	:target: https://pypi.org/project/dom_toml/
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/dom_toml?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/dom_toml
+.. |conda-version| image:: https://img.shields.io/conda/v/conda-forge/dom-toml?logo=anaconda
+	:target: https://anaconda.org/conda-forge/dom-toml
 	:alt: Conda - Package Version
 
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/dom_toml?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/dom_toml
+.. |conda-platform| image:: https://img.shields.io/conda/pn/conda-forge/dom-toml?label=conda%7Cplatform
+	:target: https://anaconda.org/conda-forge/dom-toml
 	:alt: Conda - Platform
 
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/dom_toml
@@ -133,17 +133,8 @@ To install with ``pip``:
 
 To install with ``conda``:
 
-	* First add the required channels
+.. code-block:: bash
 
-	.. code-block:: bash
-
-		$ conda config --add channels https://conda.anaconda.org/conda-forge
-		$ conda config --add channels https://conda.anaconda.org/domdfcoding
-
-	* Then install
-
-	.. code-block:: bash
-
-		$ conda install dom_toml
+	$ conda install -c conda-forge dom-toml
 
 .. end installation
