@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: domdfcoding/octocheese@master
         with:
-          pypi_name: "dom_toml"
+          pypi_name: "dom-toml"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         if: startsWith(github.ref, 'refs/tags/') != true

@@ -7,4 +7,4 @@ License
 .. license-info:: MIT
 
 .. license::
-	:py: dom_toml
+	:py: dom-toml

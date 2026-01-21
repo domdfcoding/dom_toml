@@ -70,20 +70,20 @@ dom_toml
 	:target: https://www.codefactor.io/repository/github/domdfcoding/dom_toml
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/dom_toml
-	:target: https://pypi.org/project/dom_toml/
+.. |pypi-version| image:: https://img.shields.io/pypi/v/dom-toml
+	:target: https://pypi.org/project/dom-toml/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/dom_toml?logo=python&logoColor=white
-	:target: https://pypi.org/project/dom_toml/
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/dom-toml?logo=python&logoColor=white
+	:target: https://pypi.org/project/dom-toml/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/dom_toml
-	:target: https://pypi.org/project/dom_toml/
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/dom-toml
+	:target: https://pypi.org/project/dom-toml/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/dom_toml
-	:target: https://pypi.org/project/dom_toml/
+.. |wheel| image:: https://img.shields.io/pypi/wheel/dom-toml
+	:target: https://pypi.org/project/dom-toml/
 	:alt: PyPI - Wheel
 
 .. |conda-version| image:: https://img.shields.io/conda/v/conda-forge/dom-toml?logo=anaconda
@@ -112,8 +112,8 @@ dom_toml
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2026
 	:alt: Maintenance
 
-.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/dom_toml
-	:target: https://pypistats.org/packages/dom_toml
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/dom-toml
+	:target: https://pypistats.org/packages/dom-toml
 	:alt: PyPI - Downloads
 
 .. end shields
