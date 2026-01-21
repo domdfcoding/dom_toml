@@ -71,22 +71,22 @@ dom_toml
 		:alt: CodeFactor Grade
 
 	.. |pypi-version| pypi-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:version:
 		:alt: PyPI - Package Version
 
 	.. |supported-versions| pypi-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:py-versions:
 		:alt: PyPI - Supported Python Versions
 
 	.. |supported-implementations| pypi-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:implementations:
 		:alt: PyPI - Supported Implementations
 
 	.. |wheel| pypi-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:wheel:
 		:alt: PyPI - Wheel
 
@@ -118,7 +118,7 @@ dom_toml
 		:alt: Maintenance
 
 	.. |pypi-downloads| pypi-shield::
-		:project: dom_toml
+		:project: dom-toml
 		:downloads: month
 		:alt: PyPI - Downloads
 

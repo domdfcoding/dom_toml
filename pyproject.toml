@@ -3,7 +3,7 @@ requires = [ "flit-core<4,>=3.2",]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "dom_toml"
+name = "dom-toml"
 version = "2.2.0"
 description = "Dom's tools for Tom's Obvious, Minimal Language."
 readme = "README.rst"
@@ -137,6 +137,7 @@ python-versions = [ "3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13",]
 python-implementations = [ "CPython", "PyPy",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
+package = "dom_toml"
 
 [tool.mypy]
 python_version = "3.9"
