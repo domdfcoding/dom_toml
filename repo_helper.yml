@@ -4,7 +4,7 @@ modname: dom_toml
 copyright_years: "2021"
 author: "Dominic Davis-Foster"
 email: "dominic@davis-foster.co.uk"
-version: "2.2.0"
+version: "2.3.0"
 username: "domdfcoding"
 license: 'MIT'
 short_desc: "Dom's tools for Tom's Obvious, Minimal Language."
