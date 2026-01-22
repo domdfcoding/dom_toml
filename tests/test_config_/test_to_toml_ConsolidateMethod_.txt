@@ -1,4 +1,4 @@
-[method]
+[consolidate-method]
 name_filter = []
 min_match_factor = 600
 min_appearances = -1

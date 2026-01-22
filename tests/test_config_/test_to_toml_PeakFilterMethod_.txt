@@ -1,4 +1,4 @@
-[method]
+[peak-filter-method]
 noise_filter = true
 noise_threshold = 2
 base_peak_filter = [

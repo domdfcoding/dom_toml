@@ -1,4 +1,4 @@
-[method]
+[savitzky-golay]
 enable = true
 window = 7
 degree = 2

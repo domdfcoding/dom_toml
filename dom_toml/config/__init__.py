@@ -33,7 +33,8 @@ Nested configuration parsed from a TOML file.
 
 # stdlib
 import json
-from typing import Any, Dict, Mapping, Type, TypeVar
+import re
+from typing import Any, Callable, Dict, Mapping, Type, TypeVar, Union
 
 # 3rd party
 import attrs  # nodep
@@ -43,7 +44,7 @@ from typing_extensions import Self  # nodep
 # this package
 import dom_toml
 
-__all__ = ["Config", "subtable_field"]
+__all__ = ("Config", "subtable_field", "to_kebab_case", "table_name")
 
 _C = TypeVar("_C", bound="Config")
 
@@ -60,6 +61,62 @@ def subtable_field(submethod_type: Type[_C]) -> _C:
 
 	# Actually returns attr.Attribute, but mypy doesn't like it
 	return attrs.field(factory=submethod_type, converter=submethod_type._coerce, on_setattr=on_setattr)
+
+
+_case_boundary_re = re.compile(r"([a-z])([A-Z])")
+_single_letters_re = re.compile(r"([A-Z]|\d)([A-Z])([a-z])")
+_underscore_boundary_re = re.compile(r'(\S)(_)(\S)')
+
+
+def to_kebab_case(value: Union[str, Type["Config"], "Config"]) -> str:
+	"""
+	Convert the given string into ``kebab-case``.
+
+	:param value:
+
+	:rtype:
+
+	.. versionadded:: 2.3.0
+	"""
+
+	if isinstance(value, str):
+		pass
+	elif isinstance(value, Config):
+		value = getattr(value, "table_name", value.__class__.__name__)
+	elif value is Config or (isinstance(value, type) and issubclass(value, Config)):
+		value = getattr(value, "table_name", value.__name__)
+
+	# Matches VSCode behaviour
+	case_boundary = _case_boundary_re.findall(value)
+	single_letters = _single_letters_re.findall(value)
+	underscore_boundary = _underscore_boundary_re.findall(value)
+
+	if not case_boundary and not single_letters and not underscore_boundary:
+		return value.lower()
+
+	value = _case_boundary_re.sub(r"\1-\2", value)
+	value = _single_letters_re.sub(r"\1-\2\3", value)
+	value = _underscore_boundary_re.sub(r"\1-\3", value)
+
+	return value.lower()
+
+
+def table_name(name: str) -> Callable[[Type[_C]], Type[_C]]:
+	"""
+	Decorator to override the table name on a :class:`~.Config` class.
+
+	:param name: The new table name.
+
+	:rtype:
+
+	.. versionadded:: 2.3.0
+	"""
+
+	def deco(config_class: Type[_C]) -> Type[_C]:
+		config_class.table_name = name  # type: ignore[attr-defined]
+		return config_class
+
+	return deco
 
 
 @attrs.define
@@ -94,7 +151,7 @@ class Config:
 		"""
 
 		parsed_toml = dom_toml.loads(toml_string)
-		return cls(**parsed_toml["method"])
+		return cls(**parsed_toml[to_kebab_case(cls)])
 
 	@classmethod
 	def from_json(cls: Type[Self], json_string: str) -> Self:
@@ -105,14 +162,14 @@ class Config:
 		"""
 
 		parsed_json = json.loads(json_string)
-		return cls(**parsed_json["method"])
+		return cls(**parsed_json[to_kebab_case(cls)])
 
 	def to_toml(self) -> str:
 		"""
 		Convert a :class:`~.Config` to a TOML string.
 		"""
 
-		return tomli_w.dumps({"method": self.to_dict()})
+		return tomli_w.dumps({to_kebab_case(self): self.to_dict()})
 
 	@classmethod
 	def _coerce(cls: Type[Self], config: Any) -> Self:

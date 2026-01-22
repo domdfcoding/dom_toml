@@ -8,10 +8,11 @@ from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileR
 from domdf_python_tools.paths import PathPlus
 
 # this package
-from dom_toml.config import Config, subtable_field
+from dom_toml.config import Config, subtable_field, table_name, to_kebab_case
 from dom_toml.config.fields import Boolean, Integer, Number, String
 
 
+@table_name("savitzky-golay")
 @attrs.define
 class SavitzkyGolayMethod(Config):
 
@@ -345,3 +346,34 @@ def test_fields(method: Type[Config]):
 		method().number_field = {"abcdefg": None}
 
 	method().string_field = {"abcdefg": None}
+
+
+def test_kebab_case():
+	assert to_kebab_case("FooBar") == "foo-bar"
+	assert to_kebab_case("FooBBar") == "foo-b-bar"
+	assert to_kebab_case("Foo_Bar") == "foo-bar"
+	assert to_kebab_case("foo_bar") == "foo-bar"
+	assert to_kebab_case("foobar") == "foobar"
+	assert to_kebab_case("FooBar123") == "foo-bar123"
+
+	assert to_kebab_case(Config) == "config"
+	assert to_kebab_case(SavitzkyGolayMethod) == "savitzky-golay"
+	assert to_kebab_case(IntensityMatrixMethod) == "intensity-matrix-method"
+	assert to_kebab_case(PeakDetectionMethod) == "peak-detection-method"
+	assert to_kebab_case(PeakFilterMethod) == "peak-filter-method"
+	assert to_kebab_case(AlignmentMethod) == "alignment-method"
+	assert to_kebab_case(ConsolidateMethod) == "consolidate-method"
+	assert to_kebab_case(Method) == "method"
+	assert to_kebab_case(FieldsMethod) == "fields-method"
+	assert to_kebab_case(FieldsMethodNew) == "fields-method-new"
+
+	assert to_kebab_case(Config()) == "config"
+	assert to_kebab_case(SavitzkyGolayMethod()) == "savitzky-golay"
+	assert to_kebab_case(IntensityMatrixMethod()) == "intensity-matrix-method"
+	assert to_kebab_case(PeakDetectionMethod()) == "peak-detection-method"
+	assert to_kebab_case(PeakFilterMethod()) == "peak-filter-method"
+	assert to_kebab_case(AlignmentMethod()) == "alignment-method"
+	assert to_kebab_case(ConsolidateMethod()) == "consolidate-method"
+	assert to_kebab_case(Method()) == "method"
+	assert to_kebab_case(FieldsMethod()) == "fields-method"
+	assert to_kebab_case(FieldsMethodNew()) == "fields-method-new"
