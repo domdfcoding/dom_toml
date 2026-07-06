@@ -47,7 +47,8 @@ NAN = object()
 
 def replace_nans(cont: Union[dict, list]) -> Union[dict, list]:
 	"""Replace NaNs with a sentinel object to fix the problem that NaN is not
-    equal to another NaN."""
+    equal to another NaN.
+"""
 	for k, v in cont.items() if isinstance(cont, dict) else enumerate(cont):
 		if isinstance(v, (float, Decimal)) and isnan(v):
 			cont[k] = NAN
